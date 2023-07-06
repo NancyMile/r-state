@@ -18,6 +18,7 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('../views/admin/AdminLayout.vue'),
+      meta: { requiresAuth:true},
       children: [
         {
           path: '/admin/proprieties',
@@ -37,6 +38,24 @@ const router = createRouter({
       ]
     }
   ]
+})
+
+//guard navigation
+router.beforeEach((to, from, next) => {
+  //console.log(to)
+  // console.log(from)
+  // console.log(next)
+
+  //checks if aleats one of the elemens on the array requires outh in this case main admin layout, all the childer heredate it
+  const requiresAuth = to.matched.some(url => url.meta.requiresAuth)
+  //console.log(requiresAuth)
+  if (requiresAuth) {
+    //check that the user is authenticated
+
+  } else {
+    // no protected display view
+    next()
+  }
 })
 
 export default router
