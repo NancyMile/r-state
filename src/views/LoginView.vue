@@ -1,13 +1,27 @@
 <script setup>
 import { useForm, useField } from 'vee-validate'
-import { loginSchema }  from '../validation/loginSchema'
+import { loginSchema } from '../validation/loginSchema'
+import { useFirebaseAuth } from 'vuefire'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
-const { handleSubmit } = useForm({ validationSchema: loginSchema})
+const { handleSubmit } = useForm({ validationSchema: loginSchema })
+
+const auth = useFirebaseAuth()
+
+ console.log(auth)
 
 const email = useField('email')
 const password = useField('password')
-const submit = handleSubmit(() => {
-    console.log('submit...')
+const submit = handleSubmit((values) => {
+    //console.log('submit...')
+    //console.log(values)
+    signInWithEmailAndPassword(auth, values.email, values.password)
+        .then((userCredential) => {
+            console.log(userCredential)
+        }).catch(error => {
+            console.log(error.code)
+            console.log(error.message)
+        })
 })
 
 </script>
