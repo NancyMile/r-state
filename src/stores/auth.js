@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { useFirebaseAuth } from 'vuefire'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { ref, computed } from 'vue'
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import { ref, computed, onMounted } from 'vue'
 
 
 export const useAuthStore = defineStore('auth', () => {
 
     const auth = useFirebaseAuth()
-    const authUser = ref({})
+    const authUser = ref(null)
     const errorMessage = ref('')
 
     //error dictionary
@@ -15,6 +15,15 @@ export const useAuthStore = defineStore('auth', () => {
         'auth/wrong-password': 'Wrong password',
         'auth/user-not-found': 'User not found'
     }
+
+    onMounted(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                //console.log(user)
+                authUser.value = user
+            }
+        })
+    })
 
     const login = ({ email, password}) => {
 
