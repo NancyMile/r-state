@@ -1,6 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { useAuthStore } from './stores/auth'
 
+const auth = useAuthStore()
 </script>
 
 <template>
@@ -21,16 +23,31 @@ import { RouterLink, RouterView } from 'vue-router'
             </v-btn>
           </template>
           <template v-slot:append>
+           <div v-if="auth.isAuth">
             <v-btn
-              :to="{name: 'home'}"
-            >
-              Home
-            </v-btn>
-            <v-btn
-              :to="{name: 'login'}"
-            >
-              Start Session
-            </v-btn>
+                :to="{name: 'admin-proprieties'}"
+              >
+                Admin
+              </v-btn>
+              <v-btn
+                :to="{name: 'home'}"
+              >
+                End Session
+              </v-btn>
+
+           </div>
+           <div v-else>
+              <v-btn
+                :to="{name: 'home'}"
+              >
+                Home
+              </v-btn>
+              <v-btn
+                :to="{name: 'login'}"
+              >
+                Start Session
+              </v-btn>
+           </div>
           </template>
         </v-app-bar>
 
