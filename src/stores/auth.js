@@ -7,6 +7,7 @@ import { ref, computed } from 'vue'
 export const useAuthStore = defineStore('auth', () => {
 
     const auth = useFirebaseAuth()
+    const authUser = ref({})
     const errorMessage = ref('')
 
     //error dictionary
@@ -19,7 +20,10 @@ export const useAuthStore = defineStore('auth', () => {
 
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            console.log(userCredential)
+            //console.log(userCredential)
+            const user = userCredential.user
+            authUser.value = user
+            //console.log(authUser.value)
         }).catch(error => {
             // console.log(error.code)
             // console.log(error.message)
