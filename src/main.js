@@ -8,6 +8,9 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
+//firebase
+import { VueFire, VueFireAuth } from 'vuefire'
+import { firebaseApp } from './config/firebase'
 
 import App from './App.vue'
 import router from './router'
@@ -20,6 +23,12 @@ const vuetify = createVuetify({
     directives
 })
 
+//firebase
+
+app.use(VueFire, {
+    firebaseApp,
+    modules:[VueFireAuth()]
+})
 
 app.use(vuetify)
 app.use(createPinia())
