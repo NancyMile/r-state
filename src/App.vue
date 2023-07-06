@@ -30,7 +30,7 @@ const auth = useAuthStore()
                 Admin
               </v-btn>
               <v-btn
-                :to="{name: 'home'}"
+              @click="auth.logout"
               >
                 End Session
               </v-btn>
