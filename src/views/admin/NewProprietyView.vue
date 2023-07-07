@@ -18,6 +18,7 @@ const rooms = useField('rooms')
 const bathrooms = useField('bathrooms')
 const garages = useField('garages')
 const description = useField('description')
+const balcony = useField('balcony')
 
 const submit = handleSubmit((values) => {
     console.log(values)
@@ -52,7 +53,7 @@ const submit = handleSubmit((values) => {
                 label ="Photo"
                 prepend-icon="mdi-camera"
                 class="mb-5"
-                v-model="image.validate.value"
+                v-model="image.value.value"
                 :error-messages="image.errorMessage.value"
             />
             <v-text-field
@@ -105,6 +106,8 @@ const submit = handleSubmit((values) => {
             ></v-textarea>
             <v-checkbox
                 label=" balcony"
+                v-model="balcony.value.value"
+                :error-messages="balcony.errorMessage.value"
             />
             <v-btn
                 color="pink-accent-3"
