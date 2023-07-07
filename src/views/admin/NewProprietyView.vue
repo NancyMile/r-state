@@ -1,6 +1,8 @@
 <script setup>
 import { useForm, useField } from 'vee-validate'
-import { validationSchema, imageSchema } from '@/valition/proprietySchema'
+import { validationSchema, imageSchema } from '@/validation/proprietySchema'
+
+const items = [1, 2, 3, 4, 5]
 
 const { handleSubmit } = useForm({
     validationSchema: {
@@ -9,7 +11,13 @@ const { handleSubmit } = useForm({
     }
 })
 
-const items = [1, 2, 3, 4, 5]
+const title = useField('title')
+const image = useField('image')
+const price = useField('price')
+const rooms = useField('rooms')
+const bathrooms = useField('bathrooms')
+const garages = useField('garages')
+const description = useField('description')
 
 const submit = handleSubmit((values) => {
     console.log(values)
@@ -36,16 +44,22 @@ const submit = handleSubmit((values) => {
             <v-text-field
                 class="mb-5"
                 label="Title Proprierty"
+                v-model="title.value.value"
+                :error-messages="title.errorMessage.value"
             />
             <v-file-input
                 accept="image/jpeg"
                 label ="Photo"
                 prepend-icon="mdi-camera"
                 class="mb-5"
+                v-model="image.validate.value"
+                :error-messages="image.errorMessage.value"
             />
             <v-text-field
                 class="mb-5"
                 label="Price"
+                v-model="price.value.value"
+                :error-messages="price.errorMessage.value"
             />
             <v-row>
                 <v-col
@@ -56,6 +70,8 @@ const submit = handleSubmit((values) => {
                         label="rooms"
                         class="mb-5"
                         :items="items"
+                        v-model="rooms.value.value"
+                        :error-messages="rooms.errorMessage.value"
                     />
                 </v-col>
                 <v-col
@@ -66,6 +82,8 @@ const submit = handleSubmit((values) => {
                         label="bathrooms"
                         class="mb-5"
                         :items="items"
+                        v-model="bathrooms.value.value"
+                        :error-messages="bathrooms.errorMessage.value"
                     />
                 </v-col>
                <v-col
@@ -76,10 +94,15 @@ const submit = handleSubmit((values) => {
                     label="garages"
                     class="mb-5"
                     :items="items"
+                    v-model="garages.value.value"
+                    :error-messages="garages.errorMessage.value"
                 />
                </v-col>
             </v-row>
-            <v-textarea class="mb-5" label="Description"></v-textarea>
+            <v-textarea class="mb-5" label="Description"
+                v-model="description.value.value"
+                :error-messages="description.errorMessage.value"
+            ></v-textarea>
             <v-checkbox
                 label=" balcony"
             />
